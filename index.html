@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ralaivao Dean | Étudiant & Développeur Full-Stack</title>
+  <meta name="description" content="RALAIVAO ANDRIAMANALINARIVO Dean Wolphyung - 3ᵉ année ENI | React & Laravel | Portfolio"/>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: rgba(20, 20, 30, 0.4);
+      --text: #e0e0ff;
+      --text-muted: #a0a0cc;
+      --accent: #00d4ff;
+      --accent-dark: #0099bb;
+      --border: rgba(100, 200, 255, 0.18);
+      --blur: blur(12px);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f9ff;
+      --bg-card: rgba(255, 255, 255, 0.55);
+      --text: #1a1a3d;
+      --text-muted: #5a5a8a;
+      --accent: #0066cc;
+      --accent-dark: #004488;
+      --border: rgba(0, 100, 200, 0.15);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Curseur custom */
+    .cursor, .cursor-follower {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: all 0.15s ease;
+    }
+    .cursor {
+      width: 24px; height: 24px;
+      border: 2px solid var(--accent);
+      transform: translate(-50%, -50%);
+    }
+    .cursor-follower {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      transform: translate(-50%, -50%);
+      transition: all 0.25s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.2rem 5%;
+      backdrop-filter: var(--blur);
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Geist Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: ''; position: absolute; width: 0; height: 2px; bottom: -6px; left: 0;
+      background: var(--accent); transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .theme-toggle, .burger {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .burger { display: none; }
+
+    /* Hero */
+    #hero {
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5%;
+      background: linear-gradient(135deg, #0f0f1a, #1a0f2a);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content { max-width: 900px; }
+    h1 { font-size: clamp(3.2rem, 9vw, 7rem); font-weight: 700; margin-bottom: 1rem; line-height: 0.95; }
+    .typing { font-family: 'Geist Mono', monospace; font-size: 1.5rem; color: var(--accent); margin: 1.5rem 0 2.5rem; height: 2rem; }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.4rem;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.35s;
+      margin: 0.6rem;
+    }
+    .btn:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(0,212,255,0.3);
+    }
+
+    section { padding: 9rem 5%; max-width: 1400px; margin: 0 auto; }
+    h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 4.5rem;
+      background: linear-gradient(90deg, var(--accent), #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    .card.visible { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-14px); box-shadow: 0 25px 50px rgba(0,0,0,0.35); }
+
+    .project-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.3rem; }
+    .tag {
+      background: rgba(0,212,255,0.13);
+      color: var(--accent);
+      padding: 0.45rem 1.1rem;
+      border-radius: 30px;
+      font-size: 0.92rem;
+      border: 1px solid rgba(0,212,255,0.22);
+    }
+
+    /* Burger menu */
+    .nav-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 80%; max-width: 320px;
+      height: 100%;
+      background: var(--bg);
+      backdrop-filter: var(--blur);
+      padding: 6rem 2rem 2rem;
+      transition: right 0.4s ease;
+      z-index: 999;
+    }
+    .nav-menu.active { right: 0; }
+    .nav-menu ul { flex-direction: column; gap: 3rem; }
+    .nav-menu a { font-size: 1.4rem; }
+
+    /* Formspree */
+    form { max-width: 600px; margin: 0 auto; display: grid; gap: 1.5rem; }
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+    button[type="submit"] {
+      padding: 1.1rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button[type="submit"]:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,212,255,0.35); }
+
+    footer { text-align: center; padding: 5rem 5% 3rem; color: var(--text-muted); font-size: 0.98rem; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .burger { display: block; }
+      h1 { font-size: 3.8rem; }
+      section { padding: 7rem 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <header>
+    <nav>
+      <div class="logo">Ralaivao Dean</div>
+      
+      <ul class="nav-links">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div style="display:flex; align-items:center; gap:1.8rem;">
+        <button class="theme-toggle" aria-label="Changer thème">🌙</button>
+        <button class="burger" aria-label="Menu mobile">☰</button>
+      </div>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div class="nav-menu" id="navMenu">
+      <ul class="nav-links" style="flex-direction:column; gap:3rem;">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" style="background-image: url('https://images.unsplash.com/photo-1562907550-096d3bf9b25c?auto=format&fit=crop&q=80');">
+      <div class="hero-content">
+        <h1>Bonjour, je suis<br><span style="color:var(--accent)">Dean Wolphyung</span></h1>
+        <div class="typing" id="typing-text"></div>
+        <p style="font-size:1.35rem; max-width:680px; margin:0 auto 3rem; color:var(--text-muted);">
+          RALAIVAO ANDRIAMANALINARIVO Dean Wolphyung<br>
+          Étudiant 3ᵉ année ENI • React & Laravel Enthusiast
+        </p>
+        <a href="#projects" class="btn">Découvrir mes projets</a>
+        <a href="https://github.com/Wolphyung" target="_blank" class="btn">GitHub</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>À propos de moi</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Étudiant & Développeur</h3>
+          <p>En 3ᵉ année à l'École Nationale d'Informatique (ENI), je me passionne pour le développement full-stack avec un focus sur des interfaces modernes (React) et des back-ends robustes (Laravel).</p>
+        </div>
+        <div class="card">
+          <h3>Compétences principales</h3>
+          <div class="tech-tags">
+            <span class="tag">React</span>
+            <span class="tag">Laravel</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Mes projets</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Projet 1" class="project-img">
+          <h3>Gestion de Bibliothèque</h3>
+          <p>Application full-stack avec authentification, CRUD, recherche avancée et interface responsive.</p>
+          <div class="tech-tags">
+            <span class="tag">Laravel</span>
+            <span class="tag">React</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1551650975-60cb5f76f407?auto=format&fit=crop&q=80&w=800" alt="Projet 2" class="project-img">
+          <h3>Dashboard Analytics</h3>
+          <p>Tableau de bord interactif avec visualisation de données (charts, filtres, dark mode).</p>
+          <div class="tech-tags">
+            <span class="tag">React</span>
+            <span class="tag">Laravel API</span>
+            <span class="tag">Chart.js</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1551650975-60cb5f76f407?auto=format&fit=crop&q=80&w=800" alt="Projet 3" class="project-img">
+          <h3>Portfolio Personnel</h3>
+          <p>Ce site que tu consultes ! Expérimentations glassmorphism, animations et responsive design.</p>
+          <div class="tech-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Vanilla JS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contactez-moi</h2>
+      <form action="https://formspree.io/f/{ton-form-id}" method="POST">
+        <!-- Remplace {ton-form-id} par ton vrai ID Formspree après inscription sur https://formspree.io -->
+        <input type="text" name="name" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <input type="text" name="subject" placeholder="Sujet">
+        <textarea name="message" rows="6" placeholder="Votre message..." required></textarea>
+        <button type="submit">Envoyer le message</button>
+      </form>
+
+      <div style="text-align:center; margin-top:4rem;">
+        <p style="margin-bottom:2rem; font-size:1.3rem;">
+          Ou contacte-moi directement :
+        </p>
+        <a href="mailto:deanwolphyungralaivao2004@gmail.com" style="color:var(--accent); font-size:1.4rem; text-decoration:none;">
+          deanwolphyungralaivao2004@gmail.com
+        </a>
+        <div style="margin-top:2.5rem; font-size:2.2rem; display:flex; justify-content:center; gap:3rem;">
+          <a href="https://github.com/Wolphyung" target="_blank" style="color:var(--text-muted); transition:0.3s;">GitHub</a>
+          <!-- Ajoute LinkedIn si tu en as un -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 RALAIVAO ANDRIAMANALINARIVO Dean Wolphyung — Fait avec passion depuis Antananarivo</p>
+  </footer>
+
+  <script>
+    // Curseur
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+      setTimeout(() => {
+        follower.style.left = e.clientX + 'px';
+        follower.style.top  = e.clientY + 'px';
+      }, 60);
+    });
+
+    // Typing
+    const texts = ["Étudiant ENI", "React Enthusiast", "Laravel Artisan", "Full-Stack Explorer"];
+    let idx = 0, char = 0;
+    const typingEl = document.getElementById('typing-text');
+
+    function type() {
+      if (char < texts[idx].length) {
+        typingEl.textContent += texts[idx].charAt(char++);
+        setTimeout(type, 70);
+      } else setTimeout(erase, 2200);
+    }
+    function erase() {
+      if (char > 0) {
+        typingEl.textContent = texts[idx].substring(0, --char);
+        setTimeout(erase, 35);
+      } else {
+        idx = (idx + 1) % texts.length;
+        setTimeout(type, 400);
+      }
+    }
+    type();
+
+    // Theme toggle
+    document.querySelector('.theme-toggle').addEventListener('click', () => {
+      document.body.dataset.theme = document.body.dataset.theme === 'light' ? '' : 'light';
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.card').forEach(c => observer.observe(c));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Burger menu
+    const burger = document.querySelector('.burger');
+    const navMenu = document.getElementById('navMenu');
+    burger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      burger.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+    });
+  </script>
+</body>
+</html>
