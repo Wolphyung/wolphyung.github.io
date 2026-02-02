@@ -174,14 +174,31 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-family: 'Clash Display', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover img {
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
     }
 
     .nav-links {
@@ -974,6 +991,7 @@
     .contact-card p {
       color: var(--text-secondary);
       font-size: 0.95rem;
+      word-break: break-word;
     }
 
     /* Footer */
@@ -1043,6 +1061,23 @@
 
     .mobile-menu .nav-links a {
       font-size: 1.5rem;
+    }
+
+    /* Success Message */
+    .form-success {
+      display: none;
+      padding: 1rem;
+      background: rgba(40, 200, 64, 0.1);
+      border: 1px solid rgba(40, 200, 64, 0.3);
+      border-radius: 12px;
+      color: #28c840;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .form-success.show {
+      display: block;
+      animation: fadeInUp 0.5s ease;
     }
 
     /* Responsive */
@@ -1137,7 +1172,10 @@
   <!-- Navigation -->
   <nav>
     <div class="nav-container">
-      <div class="logo">DW</div>
+      <a href="#hero" class="logo">
+        <img src="./photo_2026-02-02_22-57-18.jpg" alt="Dean Wolphyung">
+        <span>Dean Wolphyung</span>
+      </a>
       
       <ul class="nav-links">
         <li><a href="#hero">Accueil</a></li>
@@ -1183,7 +1221,7 @@
           
           <div class="hero-stats">
             <div class="stat">
-              <div class="stat-value">3+</div>
+              <div class="stat-value">2+</div>
               <div class="stat-label">Années d'expérience</div>
             </div>
             <div class="stat">
@@ -1351,8 +1389,8 @@
                 <span class="tech-badge">JWT Auth</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn btn-primary">Voir le projet</a>
-                <a href="https://github.com/Wolphyung" class="btn btn-secondary">Code source</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-primary">Voir le projet</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-secondary">Code source</a>
               </div>
             </div>
           </div>
@@ -1377,8 +1415,8 @@
                 <span class="tech-badge">Redis</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn btn-primary">Voir le projet</a>
-                <a href="https://github.com/Wolphyung" class="btn btn-secondary">Code source</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-primary">Voir le projet</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-secondary">Code source</a>
               </div>
             </div>
           </div>
@@ -1403,8 +1441,8 @@
                 <span class="tech-badge">Docker</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn btn-primary">Voir le projet</a>
-                <a href="https://github.com/Wolphyung" class="btn btn-secondary">Code source</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-primary">Voir le projet</a>
+                <a href="https://github.com/Wolphyung" target="_blank" class="btn btn-secondary">Code source</a>
               </div>
             </div>
           </div>
@@ -1425,7 +1463,7 @@
 
         <div class="timeline">
           <div class="timeline-item">
-            <div class="timeline-date">2025 - Présent</div>
+            <div class="timeline-date">2024 - Présent</div>
             <div class="timeline-content">
               <h3>3ᵉ année - Ingénierie Logicielle</h3>
               <div class="timeline-company">École Nationale d'Informatique (ENI)</div>
@@ -1438,7 +1476,7 @@
           </div>
 
           <div class="timeline-item">
-            <div class="timeline-date">2024 - 2025</div>
+            <div class="timeline-date">2023 - 2024</div>
             <div class="timeline-content">
               <h3>Développeur Full-Stack Junior</h3>
               <div class="timeline-company">Projets Personnels & Freelance</div>
@@ -1451,7 +1489,7 @@
           </div>
 
           <div class="timeline-item">
-            <div class="timeline-date">2023 - 2024</div>
+            <div class="timeline-date">2022 - 2023</div>
             <div class="timeline-content">
               <h3>2ᵉ année - Développement Web</h3>
               <div class="timeline-company">École Nationale d'Informatique (ENI)</div>
@@ -1464,7 +1502,7 @@
           </div>
 
           <div class="timeline-item">
-            <div class="timeline-date">2022 - 2023</div>
+            <div class="timeline-date">2021 - 2022</div>
             <div class="timeline-content">
               <h3>1ère année - Fondamentaux Informatiques</h3>
               <div class="timeline-company">École Nationale d'Informatique (ENI)</div>
@@ -1481,70 +1519,69 @@
 
     <!-- Contact Section -->
     <section id="contact">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-badge">// Contact</div>
-          <h2 class="section-title">Travaillons Ensemble</h2>
-          <p class="section-description">
-            Un projet en tête ? Discutons de la façon dont je peux vous aider
-          </p>
-        </div>
+        <div class="container contact-container">
+            <div class="section-header">
+            <div class="section-badge">// Contact</div>
+            <h2 class="section-title">Entrer en contact</h2>
+            <p class="section-description">
+                Vous pouvez me laisser un message et je vous répondrai dans les plus brefs délais.
+            </p>
+            </div>
 
-        <div class="contact-container">
-          <form class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <form class="contact-form" action="https://formspree.io/f/mzdvkqjl" method="POST">
             <div class="form-grid">
-              <div class="form-group">
-                <label class="form-label" for="name">Nom complet</label>
-                <input type="text" id="name" name="name" placeholder="Jean Dupont" required>
-              </div>
+                <div class="form-group">
+                <label class="form-label" for="name">Nom</label>
+                <input type="text" name="name" id="name" placeholder="Votre nom" required>
+                </div>
 
-              <div class="form-group">
-                <label class="form-label" for="email">Adresse email</label>
-                <input type="email" id="email" name="email" placeholder="jean.dupont@exemple.com" required>
-              </div>
+                <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Votre email" required>
+                </div>
 
-              <div class="form-group">
-                <label class="form-label" for="subject">Sujet</label>
-                <input type="text" id="subject" name="subject" placeholder="Projet de développement web">
-              </div>
-
-              <div class="form-group">
+                <div class="form-group">
                 <label class="form-label" for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Décrivez votre projet ou votre demande..." required></textarea>
-              </div>
-
-              <button type="submit">Envoyer le message</button>
+                <textarea name="message" id="message" placeholder="Votre message" required></textarea>
+                </div>
             </div>
-          </form>
 
-          <div class="contact-info">
+            <!-- Champ optionnel pour redirection après envoi -->
+            <input type="hidden" name="_next" value="https://votre-site.com/merci.html">
+
+            <button type="submit">Envoyer</button>
+
+            <div class="form-success" id="formSuccess">Merci ! Votre message a été envoyé.</div>
+            </form>
+
+            <div class="contact-info">
             <a href="mailto:deanwolphyungralaivao2004@gmail.com" class="contact-card">
-              <div class="contact-icon">📧</div>
-              <h4>Email</h4>
-              <p>deanwolphyungralaivao2004@gmail.com</p>
+                <div class="contact-icon">📧</div>
+                <h4>Email</h4>
+                <p>deanwolphyungralaivao2004@gmail.com</p>
             </a>
 
-            <a href="https://github.com/Wolphyung" target="_blank" class="contact-card">
-              <div class="contact-icon">💻</div>
-              <h4>GitHub</h4>
-              <p>@Wolphyung</p>
+            <a href="tel:+261000000000" class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h4>Téléphone</h4>
+                <p>+261 71 468 38</p>
             </a>
 
-            <div class="contact-card">
-              <div class="contact-icon">📍</div>
-              <h4>Localisation</h4>
-              <p>Fianarantsoa 301, Madagascar</p>
+            <a href="https://www.linkedin.com/in/deanwolphyung" class="contact-card" target="_blank">
+                <div class="contact-icon">🔗</div>
+                <h4>LinkedIn</h4>
+                <p>linkedin.com/in/deanwolphyung</p>
+            </a>
             </div>
-          </div>
         </div>
-      </div>
     </section>
+
   </main>
 
   <footer>
     <div class="footer-content">
       <div class="footer-text">
-        © 2026 Dean Wolphyung. Développé avec passion à Antananarivo 🇲🇬
+        © 2026 Dean Wolphyung. Développé avec passion à Fianarantsoa 🇲🇬
       </div>
       <div class="footer-links">
         <a href="https://github.com/Wolphyung" target="_blank">GitHub</a>
@@ -1569,7 +1606,6 @@
     });
 
     function animateCursor() {
-      // Smooth cursor following
       cursorX += (mouseX - cursorX) * 0.2;
       cursorY += (mouseY - cursorY) * 0.2;
       dotX += (mouseX - dotX) * 0.3;
@@ -1652,7 +1688,6 @@
         window.requestAnimationFrame(() => {
           const scrolled = window.pageYOffset;
           
-          // Hero parallax
           const hero = document.querySelector('.hero');
           if (hero && scrolled < window.innerHeight) {
             hero.style.transform = `translateY(${scrolled * 0.3}px)`;
@@ -1678,6 +1713,45 @@
         cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
         cursor.style.borderColor = 'var(--accent-primary)';
       });
+    });
+
+    // Contact form handling
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        subject: formData.get('subject'),
+        message: formData.get('message')
+      };
+
+      try {
+        const response = await fetch('https://formspree.io/f/mzdvkqjl', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          formSuccess.classList.add('show');
+          contactForm.reset();
+          
+          setTimeout(() => {
+            formSuccess.classList.remove('show');
+          }, 5000);
+        } else {
+          alert('Une erreur est survenue. Veuillez réessayer.');
+        }
+      } catch (error) {
+        alert('Une erreur est survenue. Veuillez réessayer.');
+      }
     });
   </script>
 </body>
